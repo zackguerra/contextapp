@@ -14,6 +14,15 @@ const Reducer = (state=initState, action) => {
                 ...state,
                 toDoList: [...state.toDoList, action.payload]
             };
+        case "DONE_TO_DO":
+            const tempList = state.toDoList.map(item => {
+                item.id === action.payload && (item.isDone = !item.isDone)
+                return item;
+            });
+            return {
+                ...state,
+                todoList: tempList
+            }
         default:
             return state;
     }
