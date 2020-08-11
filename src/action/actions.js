@@ -7,3 +7,6 @@ export const markToDoAction = id => {
 }
 
 //Remove
+export const deleteToDoAction = id => {
+    return { type: "REMOVE_TO_DO", payload: id }
+}

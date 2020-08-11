@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import ToDos from "./ToDos";
 import AddForm from "./AddForm";
 
-import {newToDoAction, markToDoAction} from "../action/actions";
+import {newToDoAction, markToDoAction, deleteToDoAction} from "../action/actions";
 
-const ToDoList = ({ someList, newToDo, markToDo }) => {
+const ToDoList = ({ someList, newToDo, markToDo, removeToDo }) => {
   
   const addToDo = (content) => {
     //somefunction for reducer......
@@ -15,13 +15,18 @@ const ToDoList = ({ someList, newToDo, markToDo }) => {
 
   const doneToDo = id => {
     //somefunction for reducer
-    console.log(id)
+    console.log(someList)
     markToDo(id);
+  }
+
+  const deleteToDo = id => {
+    //somefunction for reducer
+    removeToDo(id);
   }
 
   return (
     <>
-      <ToDos toDoList={someList} doneToDo={doneToDo} />
+      <ToDos toDoList={someList} doneToDo={doneToDo} deleteToDo={deleteToDo} />
       <AddForm addToDo={addToDo} />
     </>
   );
@@ -37,7 +42,8 @@ const mapDispatchToProps = dispatch => {
     return {
         newToDo: content => { dispatch(newToDoAction(content)) },
         // newToDo: content => { dispatch({ type: "NEW_TO_DO", payload: content }) }
-        markToDo: id  => { dispatch(markToDoAction(id)) }
+        markToDo: id  => { dispatch(markToDoAction(id)) },
+        removeToDo: id => { dispatch(deleteToDoAction(id)) }
     }
 }
 

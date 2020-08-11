@@ -23,6 +23,15 @@ const Reducer = (state=initState, action) => {
                 ...state,
                 todoList: tempList
             }
+        case "REMOVE_TO_DO":
+            const newArray = state.toDoList.filter(item => {
+                return item.id !== action.payload
+            });
+            console.log(newArray);
+            return{
+                ...state,
+                todoList: newArray
+            };
         default:
             return state;
     }
