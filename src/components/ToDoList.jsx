@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import ToDos from "./ToDos";
 import AddForm from "./AddForm";
+import FilterButtons from "./FilterButtons";
 
 import {newToDoAction, markToDoAction, deleteToDoAction} from "../action/actions";
 
 const ToDoList = ({ someList, newToDo, markToDo, removeToDo }) => {
+  const [filterValue, setFilterValue] = useState("SHOW_ALL")
   
   const addToDo = (content) => {
     //somefunction for reducer......
@@ -24,9 +26,29 @@ const ToDoList = ({ someList, newToDo, markToDo, removeToDo }) => {
     removeToDo(id);
   }
 
+  const filterFunc = action => {
+    setFilterValue(action);
+  }
+
+  const getVisibleToDos = (someList, filterValue) => {
+    switch(filterValue){
+      case "SHOW_COMPLETED":
+        return someList.filter(item => item.isDone)
+      case "SHOW_ACTIVE":
+        return someList.filter(item => !item.isDone);
+      case "SHOW_ALL":
+        return someList;
+      default:
+        break;
+    }
+  }
+
+  const visibleList = getVisibleToDos(someList, filterValue);
+
   return (
     <>
-      <ToDos toDoList={someList} doneToDo={doneToDo} deleteToDo={deleteToDo} />
+      <FilterButtons filterFunc={filterFunc} filterValue={filterValue} />
+      <ToDos toDoList={visibleList} doneToDo={doneToDo} deleteToDo={deleteToDo} />
       <AddForm addToDo={addToDo} />
     </>
   );

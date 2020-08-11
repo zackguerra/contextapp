@@ -21,7 +21,7 @@ const Reducer = (state=initState, action) => {
             });
             return {
                 ...state,
-                todoList: tempList
+                toDoList: tempList //shoutout to Hector!!
             }
         case "REMOVE_TO_DO":
             const newArray = state.toDoList.filter(item => {
@@ -30,7 +30,7 @@ const Reducer = (state=initState, action) => {
             console.log(newArray);
             return{
                 ...state,
-                todoList: newArray
+                toDoList: newArray //shoutout to Hector!!
             };
         default:
             return state;

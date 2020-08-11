@@ -9,12 +9,21 @@ const ToDos = ({ toDoList, doneToDo, deleteToDo }) => {
           {console.log(todo.isDone)}
           <span
             style={{
-              textDecoration: todo.isDone ? "underline" : "none",
+              textDecoration: todo.isDone ? "line-through" : "none",
             }}
             onClick={() => doneToDo(todo.id)}
           >
             {todo.content}
           </span>
+          <a
+            href="#~"
+            className="secondary-content"
+            onClick={() => {
+              deleteToDo(todo.id);
+            }}
+          >
+            <i className="material-icons red-text text-accent-1">delete</i>
+          </a>
           <a
             href="#~"
             onClick={() => {
@@ -25,14 +34,11 @@ const ToDos = ({ toDoList, doneToDo, deleteToDo }) => {
             <i
               className={cx("material-icons", {
                 "blue-text text-lighten-4": !todo.isDone,
-                "amber-text text-darken-2": todo.isDone
+                "amber-text text-darken-2": todo.isDone,
               })}
             >
               check
             </i>
-          </a>
-          <a href="#~" className="secondary-content" onClick={()=>{deleteToDo(todo.id)}}>
-              <i className="material-icons red-text text-accent-1">delete</i>
           </a>
         </div>
       );
