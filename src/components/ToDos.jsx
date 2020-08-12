@@ -6,7 +6,6 @@ const ToDos = ({ toDoList, doneToDo, deleteToDo }) => {
     toDoList.map((todo) => {
       return (
         <div className="collection-item" key={todo.id}>
-          {console.log(todo.isDone)}
           <span
             style={{
               textDecoration: todo.isDone ? "line-through" : "none",
@@ -44,7 +43,7 @@ const ToDos = ({ toDoList, doneToDo, deleteToDo }) => {
       );
     })
   ) : (
-    <p>No ToDos</p>
+    <p className="center">No ToDos</p>
   );
 
   return <div className="collection">{list}</div>;

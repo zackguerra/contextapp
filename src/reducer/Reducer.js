@@ -27,7 +27,6 @@ const Reducer = (state=initState, action) => {
             const newArray = state.toDoList.filter(item => {
                 return item.id !== action.payload
             });
-            console.log(newArray);
             return{
                 ...state,
                 toDoList: newArray //shoutout to Hector!!

@@ -1,29 +1,24 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import ToDos from "./ToDos";
 import AddForm from "./AddForm";
 import FilterButtons from "./FilterButtons";
 
-import {newToDoAction, markToDoAction, deleteToDoAction} from "../action/actions";
-
-const ToDoList = ({ someList, newToDo, markToDo, removeToDo }) => {
-  const [filterValue, setFilterValue] = useState("SHOW_ALL")
+const ToDoList = () => {
+  const [filterValue, setFilterValue] = useState("SHOW_ALL");
+  const someList = useSelector(state  => state.toDoList); //gets the state from Redux store
+  const dispatch = useDispatch();  //to send to Reducer
   
   const addToDo = (content) => {
-    //somefunction for reducer......
-    // console.log("content: ", content);
-    newToDo(content);
+    dispatch({ type: "NEW_TO_DO", payload: content });
   };
 
   const doneToDo = id => {
-    //somefunction for reducer
-    console.log(someList)
-    markToDo(id);
+    dispatch({ type: "DONE_TO_DO", payload: id});
   }
 
   const deleteToDo = id => {
-    //somefunction for reducer
-    removeToDo(id);
+    dispatch({ type: "REMOVE_TO_DO", payload: id });
   }
 
   const filterFunc = action => {
@@ -54,19 +49,4 @@ const ToDoList = ({ someList, newToDo, markToDo, removeToDo }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    someList: state.toDoList,
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        newToDo: content => { dispatch(newToDoAction(content)) },
-        // newToDo: content => { dispatch({ type: "NEW_TO_DO", payload: content }) }
-        markToDo: id  => { dispatch(markToDoAction(id)) },
-        removeToDo: id => { dispatch(deleteToDoAction(id)) }
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ToDoList);
+export default ToDoList;
